@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="content" content="Jeff Zhong">
+  <!--Import Google Icon Font-->
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BS Text to Speech</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <h1>Bullshit Text to Speech</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 input-field">
+        <input id="textphrase" type="text" class="validate">
+        <label for="textphrase">Type Bullshit Here</label>
+        <button class="btn waves-effect waves-light" onClick='readPhrase("textphrase")'>Read Phrase</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <p id="premadeDisplay"></p>
+        <button class="btn waves-effect waves-light red" onClick='readPhrase("premade")'>Get Bullshit</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+  <script>
+    var premades = [
+      'Gerbils are immune to rat poison. No one knows why.',
+      'KR Warlock ice build is way better than shadow.',
+      'Obama discriminates against left handed people.',
+      "We'll get funding by the end of the quarter.",
+      'We have most everything working.',
+      'Location of Atlantis is Charter Deep Web behind a Closed System',
+      'Google is discriminating against women.',
+      'There was a flood in Japan which caused spiders to take over trees',
+      'The Holocaust never happened',
+      "My main's a high diamond support.",
+      "I have two meetings",
+      'Natasha Excelby is still doing ABC shifts.',
+      'We cleared Legendary difficulty with Irene.',
+      'Trump dropped a bomb in Afghanistan with a 1 mile blast radius on top of 95,000 people',
+      'Kangaroos marched 7,726 miles from Mount Ararat after The Flood to Australia',
+      'Do sorority girls pose like meerkats or the other way around?',
+      "He's going to be on soon",
+      "I didn't think they'd give us that much brisket",
+      "One day kids won't see color",
+      "Trump signs boy's hat, and then proceeds to throw it away",
+      'Napoleon was a short man',
+      'Ostriches prefer farmers instead of other ostriches',
+      'Tomatoes make your skin look healthier',
+      'Omega-3 helps prevent cramps'
+    ];
+
+    function readPhrase(id) {
+      if (id === 'premade') {
+        premades.sort(function(a, b) {
+          return 0.5 - Math.random()
+        });
+        document.getElementById('premadeDisplay').innerHTML = premades[0];
+      } else {
+        var phrase = document.getElementById(id).value;
+        responsiveVoice.speak(phrase);
+      }
+    }
+  </script>
+</body>
+
+</html>
