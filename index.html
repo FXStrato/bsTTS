@@ -17,18 +17,22 @@
     <div class="row">
       <div class="col s12">
         <h1>Bullshit Text to Speech</h1>
+        <p>NOTE: Make sure you have sound enabled</p>
+        <p>This here is a bullshit text to speech app. Type in a phrase of bullshit, and listen to it to gauge for yourself just how much bullshittery it sounds. Want to hear the bullshit that I discovered over a week? Click on the red "Get Bullshit" button to hear 1 of 23 phrases that were clearly bullshit.</p>
       </div>
     </div>
     <div class="row">
-      <div class="col s12 input-field">
-        <input id="textphrase" type="text" class="validate">
-        <label for="textphrase">Type Bullshit Here</label>
-        <button class="btn waves-effect waves-light" onClick='readPhrase("textphrase")'>Read Phrase</button>
-      </div>
+      <form onSubmit='readPhrase("textphrase")'>
+        <div class="col s12 input-field">
+          <input id="textphrase" type="text" class="validate">
+          <label for="textphrase">Type Bullshit Here</label>
+          <button id="textbutton" type="submit" class="btn waves-effect waves-light">Read Phrase</button>
+        </div>
+      </form>
     </div>
     <div class="row">
       <div class="col s12">
-        <p id="premadeDisplay"></p>
+        <p id="premadeDisplay"> </p>
         <button class="btn waves-effect waves-light red" onClick='readPhrase("premade")'>Get Bullshit</button>
       </div>
     </div>
@@ -39,6 +43,10 @@
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
   <script>
+    document.getElementById("textbutton").addEventListener("click", function(event){
+        event.preventDefault();
+        readPhrase('textphrase');
+    });
     var premades = [
       'Gerbils are immune to rat poison. No one knows why.',
       'KR Warlock ice build is way better than shadow.',
@@ -47,23 +55,23 @@
       'We have most everything working.',
       'Location of Atlantis is Charter Deep Web behind a Closed System',
       'Google is discriminating against women.',
-      'There was a flood in Japan which caused spiders to take over trees',
-      'The Holocaust never happened',
+      'There was a flood in Japan which caused spiders to take over trees.',
+      'The Holocaust never happened.',
       "My main's a high diamond support.",
-      "I have two meetings",
+      "I have two meetings.",
       'Natasha Excelby is still doing ABC shifts.',
       'We cleared Legendary difficulty with Irene.',
-      'Trump dropped a bomb in Afghanistan with a 1 mile blast radius on top of 95,000 people',
-      'Kangaroos marched 7,726 miles from Mount Ararat after The Flood to Australia',
+      'Trump dropped a bomb in Afghanistan with a 1 mile blast radius on top of 95,000 people.',
+      'Kangaroos marched 7,726 miles from Mount Ararat after The Flood to Australia.',
       'Do sorority girls pose like meerkats or the other way around?',
       "He's going to be on soon",
-      "I didn't think they'd give us that much brisket",
-      "One day kids won't see color",
-      "Trump signs boy's hat, and then proceeds to throw it away",
-      'Napoleon was a short man',
-      'Ostriches prefer farmers instead of other ostriches',
-      'Tomatoes make your skin look healthier',
-      'Omega-3 helps prevent cramps'
+      "I didn't think they'd give us that much brisket.",
+      "One day kids won't see color.",
+      "Trump signs boy's hat, and then proceeds to throw it away.",
+      'Napoleon was a short man.',
+      'Ostriches prefer farmers instead of other ostriches.',
+      'Tomatoes make your skin look healthier.',
+      'Omega-3 helps prevent cramps.'
     ];
 
     function readPhrase(id) {
@@ -72,9 +80,11 @@
           return 0.5 - Math.random()
         });
         document.getElementById('premadeDisplay').innerHTML = premades[0];
+        responsiveVoice.speak(premades[0]);
       } else {
         var phrase = document.getElementById(id).value;
-        responsiveVoice.speak(phrase);
+        if(phrase) responsiveVoice.speak(phrase);
+        else alert('Please type in something');
       }
     }
   </script>
